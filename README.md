@@ -1,6 +1,6 @@
 # my-electron-vue
 
-> An electron-vue project
+> An electron-vue project 基于elctron-vue搭建的项目使用element组件
 
 #### Build Setup
 
@@ -22,7 +22,3 @@ npm test
 npm run lint
 
 ```
-
----
-
-This project was generated with [electron-vue](https://github.com/SimulatedGREG/electron-vue)@[a01d4d6](https://github.com/SimulatedGREG/electron-vue/tree/a01d4d68edff32c432273320f7df716234f56146) using [vue-cli](https://github.com/vuejs/vue-cli). Documentation about the original structure can be found [here](https://simulatedgreg.gitbooks.io/electron-vue/content/index.html).
