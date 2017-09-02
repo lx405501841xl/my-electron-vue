@@ -2,12 +2,13 @@
   <div id="wrapper">
     <main>
       <el-row>
-        <div class="total-msg" v-bind:style="{height: css.totalHeight + 'px'}"></div>
+        <div class="hostory-msg" v-bind:style="{height: css.hostoryHeight + 'px'}">
+          <msg v-for="item in hostory" :key="item.id" :msg="item.msg" :user="item.user" :float="item.float" :head="item.head"></msg>
+        </div>
         <div class="self-msg">
-          <el-input type="textarea" resize="none" :autosize="{ minRows: 4, maxRows: 4}" v-model="msg">
-          </el-input>
-          <el-button @click="reback()">返回</el-button>
-          <el-button type="primary">发送</el-button>
+          <el-input type="textarea" resize="none" :autosize="{ minRows: 4, maxRows: 4}" v-model="msg"></el-input>
+            <el-button @click="reback()">返回</el-button>
+            <el-button type="primary">发送</el-button>
         </div>
       </el-row>
     </main>
@@ -15,18 +16,30 @@
 </template>
 
 <script>
+import msg from './msg/Msg'
+
 export default {
   name: 'main-page',
+  components: { msg },
   data () {
     return {
       msg: '',
+      hostory: [
+        {
+          id: 1,
+          msg: '你好,图灵机器人',
+          user: 'wcl',
+          float: 1,
+          head: '~@/assets/user2.png'
+        }
+      ],
       notice: undefined
     }
   },
   computed: {
     css: function () {
       return {
-        totalHeight: document.body.scrollHeight - 168
+        hostoryHeight: document.body.scrollHeight - 168
       }
     }
   },
@@ -48,7 +61,7 @@ export default {
 </script>
 
 <style>
-.total-msg {
+.hostory-msg {
   border: 1px solid #bfcbd9;
   background-color: white;
 }
