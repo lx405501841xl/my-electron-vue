@@ -26,7 +26,6 @@ export default {
   methods: {
   },
   mounted () {
-    console.log('4322')
   }
 }
 </script>

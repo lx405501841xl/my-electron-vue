@@ -7,8 +7,8 @@
         </div>
         <div class="self-msg">
           <el-input type="textarea" resize="none" :autosize="{ minRows: 4, maxRows: 4}" v-model="msg"></el-input>
-            <el-button @click="reback()">返回</el-button>
-            <el-button type="primary">发送</el-button>
+          <el-button @click="reback()">返回</el-button>
+          <el-button type="primary">发送</el-button>
         </div>
       </el-row>
     </main>
@@ -24,13 +24,14 @@ export default {
   data () {
     return {
       msg: '',
+      id: 1,
       hostory: [
         {
           id: 1,
-          msg: '你好,图灵机器人',
-          user: 'wcl',
-          float: 1,
-          head: '~@/assets/user2.png'
+          msg: '你好,' + this.$store.user.user,
+          user: '图灵机器人',
+          float: 0,
+          head: '~@/assets/tuling.png'
         }
       ],
       notice: undefined
@@ -64,6 +65,7 @@ export default {
 .hostory-msg {
   border: 1px solid #bfcbd9;
   background-color: white;
+  overflow-y: scroll;
 }
 
 .self-msg {
