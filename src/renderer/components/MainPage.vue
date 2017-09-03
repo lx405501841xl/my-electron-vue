@@ -2,13 +2,13 @@
   <div id="wrapper">
     <main>
       <el-row>
-        <div class="hostory-msg" v-bind:style="{height: css.hostoryHeight + 'px'}">
-          <msg v-for="item in hostory" :key="item.id" :msg="item.msg" :user="item.user" :float="item.float" :head="item.head"></msg>
+        <div ref="hmsg" class="hostory-msg" :style="{height: hostoryHeight + 'px'}">
+          <msg v-for="item in hostory" :key="item.id" :msg="item.msg.text" :user="item.user" :float="item.float" :head="item.head"></msg>
         </div>
         <div class="self-msg">
-          <el-input type="textarea" resize="none" :autosize="{ minRows: 4, maxRows: 4}" v-model="msg"></el-input>
-          <el-button @click="reback()">返回</el-button>
-          <el-button type="primary">发送</el-button>
+          <el-input type="textarea" resize="none" :autosize="{ minRows: 4, maxRows: 4}" v-model="msg" @keyup.native.enter="handleSubmit()"></el-input>
+          <el-button @click="handleReback()">返回</el-button>
+          <el-button type="primary" @click="handleSubmit()">发送</el-button>
         </div>
       </el-row>
     </main>
@@ -20,43 +20,70 @@ import msg from './msg/Msg'
 
 export default {
   name: 'main-page',
+
   components: { msg },
+
   data () {
     return {
-      msg: '',
-      id: 1,
-      hostory: [
-        {
-          id: 1,
-          msg: '你好,' + this.$store.user.user,
-          user: '图灵机器人',
-          float: 0,
-          head: '~@/assets/tuling.png'
-        }
-      ],
-      notice: undefined
+      msg: '你好', // 用户输入信息
+      id: 0, // 对话id记录,机器人发来的和用户发出的都用这个id记录
+      hostory: [] // 历史对话
     }
   },
+
   computed: {
-    css: function () {
-      return {
-        hostoryHeight: document.body.scrollHeight - 168
-      }
+    hostoryHeight: function () {
+      return document.body.scrollHeight - 168
     }
   },
+
   methods: {
-    reback () {
+    msgScrollTop () {
+      setTimeout(() => { this.$refs.hmsg.scrollTop = this.$refs.hmsg.scrollHeight }, 50)
+    },
+
+    handleReback () {
       if (this.notice) this.notice.close()
       this.$router.push('/login') // 路由到login
+    },
+
+    handleSubmit () {
+      let msg = {
+        id: ++this.id,
+        msg: { text: this.msg },
+        user: this.$store.user.user,
+        float: 1,
+        head: this.$store.user.icon
+      }
+      this.hostory.push(msg)
+      this.send(msg.msg)
+      this.msg = ''
+      this.msgScrollTop()
+    },
+
+    send (info) {
+      let userid = this.$store.user.id
+      this.$http.post('http://www.tuling123.com/openapi/api', {
+        key: 'e4c19a28838546bcaf514aa6922101d7',
+        info: info,
+        userid: userid
+      }).then((res) => {
+        let msg = {
+          id: ++this.id,
+          msg: res.data,
+          user: '图灵机器人',
+          float: 0,
+          head: '/src/renderer/assets/tuling.png'
+        }
+        this.hostory.push(msg)
+        this.msgScrollTop()
+      })
     }
   },
+
   mounted () {
-    this.notice = this.$notify({
-      title: '提示',
-      type: 'success',
-      message: '现在可以进行聊天了哦!',
-      duration: 0
-    })
+    // 打招呼用语
+    this.handleSubmit()
   }
 }
 </script>

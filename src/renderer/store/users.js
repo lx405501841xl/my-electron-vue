@@ -1,6 +1,6 @@
 import fs from 'fs'
 
-const USERS_PATH = './user.json'
+const USERS_PATH = './static/user.json'
 
 var users
 

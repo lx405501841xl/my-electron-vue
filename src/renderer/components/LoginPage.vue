@@ -7,8 +7,8 @@
             <el-input v-model="ruleForm.user" placeholder="请输入你的昵称"></el-input>
           </el-form-item>
           <el-form-item label="" prop="icon">
-            <img src="~@/assets/user1.jpg" @click="checkIcon('~@/assets/user1.jpg')" :class="ruleForm.icon == '~@/assets/user1.jpg' ? 'check' : ''">
-            <img src="~@/assets/user2.jpg" @click="checkIcon('~@/assets/user2.jpg')" :class="ruleForm.icon == '~@/assets/user2.jpg' ? 'check' : ''">
+            <img src="/src/renderer/assets/user1.jpg" @click="checkIcon('/src/renderer/assets/user1.jpg')" :class="ruleForm.icon == '/src/renderer/assets/user1.jpg' ? 'check' : ''">
+            <img src="/src/renderer/assets/user2.jpg" @click="checkIcon('/src/renderer/assets/user2.jpg')" :class="ruleForm.icon == '/src/renderer/assets/user2.jpg' ? 'check' : ''">
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="handleSubmit('ruleForm')">开始聊天</el-button>
@@ -28,7 +28,7 @@ export default {
     return {
       ruleForm: {
         user: '',
-        icon: '~@/assets/user1.jpg'
+        icon: '/src/renderer/assets/user1.jpg'
       },
       rules: {
         user: [

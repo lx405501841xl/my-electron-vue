@@ -21,7 +21,10 @@ function createWindow () {
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    show: false
+    show: false,
+    webPreferences: {
+      webSecurity: false
+    }
   })
 
   mainWindow.once('ready-to-show', () => {

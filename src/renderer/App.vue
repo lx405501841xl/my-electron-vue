@@ -7,6 +7,7 @@
 <script>
 import users from './store/users'
 import { Loading } from 'element-ui'
+
 export default {
   name: 'my-electron-vue',
   mounted () {
