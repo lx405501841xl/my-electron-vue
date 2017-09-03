@@ -3,7 +3,7 @@
     <main>
       <el-row>
         <div ref="hmsg" class="hostory-msg" :style="{height: hostoryHeight + 'px'}">
-          <msg v-for="item in hostory" :key="item.id" :msg="item.msg.text" :user="item.user" :float="item.float" :head="item.head"></msg>
+          <msg v-for="item in hostory" :key="item.id" :msg="item.msg" :user="item.user" :float="item.float" :head="item.head"></msg>
         </div>
         <div class="self-msg">
           <el-input type="textarea" resize="none" :autosize="{ minRows: 4, maxRows: 4}" v-model="msg" @keyup.native.enter="handleSubmit()"></el-input>
@@ -31,6 +31,13 @@ export default {
     }
   },
 
+  watch: {
+    hostory: function () {
+      // DOM更新后执行
+      this.$nextTick(() => { this.$refs.hmsg.scrollTop = this.$refs.hmsg.scrollHeight })
+    }
+  },
+
   computed: {
     hostoryHeight: function () {
       return document.body.scrollHeight - 168
@@ -38,10 +45,6 @@ export default {
   },
 
   methods: {
-    msgScrollTop () {
-      setTimeout(() => { this.$refs.hmsg.scrollTop = this.$refs.hmsg.scrollHeight }, 50)
-    },
-
     handleReback () {
       if (this.notice) this.notice.close()
       this.$router.push('/login') // 路由到login
@@ -58,7 +61,6 @@ export default {
       this.hostory.push(msg)
       this.send(msg.msg)
       this.msg = ''
-      this.msgScrollTop()
     },
 
     send (info) {
@@ -76,14 +78,17 @@ export default {
           head: '/src/renderer/assets/tuling.png'
         }
         this.hostory.push(msg)
-        this.msgScrollTop()
       })
     }
   },
 
   mounted () {
-    // 打招呼用语
-    this.handleSubmit()
+    if (!this.$store.user) {
+      // 如果user为空就是没有登录 路由到login
+      this.$router.push('/login')
+      return
+    }
+    this.handleSubmit() // 打招呼
   }
 }
 </script>

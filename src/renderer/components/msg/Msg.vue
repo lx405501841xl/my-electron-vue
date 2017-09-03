@@ -4,7 +4,7 @@
       <img :src="head" :class="float == 0 ? 'icon icon-left' : 'icon icon-right'">
       <div class="msg">
         <div :class="float == 0 ? 'msg-user msg-left' : 'msg-user msg-right'">{{user}}</div>
-        <div :class="float == 0 ? 'msg-info gray' : 'msg-info blue'">{{msg}}</div>
+        <div :class="float == 0 ? 'msg-info gray' : 'msg-info blue'">{{msg.text}}</div>
       </div>
     </div>
   </el-row>
@@ -14,7 +14,9 @@
 export default {
   name: 'msg',
   props: {
-    msg: String, // 消息
+    msg: {
+      text: String
+    }, // 消息
     user: String, // 用户
     float: {
       type: Number,

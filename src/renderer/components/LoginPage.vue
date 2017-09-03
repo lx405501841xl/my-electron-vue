@@ -4,7 +4,7 @@
       <el-row>
         <el-form :model="ruleForm" :rules="rules" label-width="0px" ref="ruleForm">
           <el-form-item label="" prop="user">
-            <el-input v-model="ruleForm.user" placeholder="请输入你的昵称"></el-input>
+            <el-input v-model="ruleForm.user" placeholder="请输入你的昵称" @keyup.native.enter="handleSubmit('ruleForm')"></el-input>
           </el-form-item>
           <el-form-item label="" prop="icon">
             <img src="/src/renderer/assets/user1.jpg" @click="checkIcon('/src/renderer/assets/user1.jpg')" :class="ruleForm.icon == '/src/renderer/assets/user1.jpg' ? 'check' : ''">
