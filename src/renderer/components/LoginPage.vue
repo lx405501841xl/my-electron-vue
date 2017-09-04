@@ -30,6 +30,7 @@ export default {
         user: '',
         icon: '/src/renderer/assets/user1.jpg'
       },
+
       rules: {
         user: [
           { required: true, message: ' ', trigger: 'change' }
@@ -62,6 +63,7 @@ export default {
         }
       })
     },
+
     checkIcon (icon) {
       this.ruleForm.icon = icon
     }

@@ -8,6 +8,7 @@ export default {
   getUser: function () {
     return users.users
   },
+
   setUser: function (name, icon) {
     users.id += 1
     let newUser = {
@@ -18,12 +19,14 @@ export default {
     users.users.push(newUser)
     return newUser.id
   },
+
   load: function () {
     if (!users) {
       var data = fs.readFileSync(USERS_PATH).toString()
       users = JSON.parse(data)
     }
   },
+
   store: function () {
     fs.writeFile(USERS_PATH, JSON.stringify(users), (err) => { if (err) console.log(err) })
   }
