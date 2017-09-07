@@ -32,14 +32,14 @@ export default {
   },
 
   watch: {
-    hostory: function () {
+    hostory () {
       // DOM更新后执行
       this.$nextTick(() => { this.$refs.hmsg.scrollTop = this.$refs.hmsg.scrollHeight })
     }
   },
 
   computed: {
-    hostoryHeight: function () {
+    hostoryHeight () {
       return document.body.scrollHeight - 168
     }
   },
