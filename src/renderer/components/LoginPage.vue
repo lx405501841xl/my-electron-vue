@@ -24,6 +24,7 @@ import users from '../store/users'
 
 export default {
   name: 'login-page',
+
   data () {
     return {
       ruleForm: {
@@ -41,6 +42,7 @@ export default {
       }
     }
   },
+
   methods: {
     handleSubmit (formName) {
       this.$refs[formName].validate((valid) => {
